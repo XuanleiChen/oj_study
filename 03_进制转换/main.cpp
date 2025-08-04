@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 #define ll long long
 using namespace std;
-string c="0123456798ABCDEF";//对应字符。
+string c="012345679ABCDEF";//对应字符。
 void f(int x,int m){
 	if(x/m) f(x/m,m);//继续递归。
 	cout<<c[x%m];//倒序输出。
@@ -12,3 +12,7 @@ int main(){
 	f(x,m);//递归。
 	return 0;
 }
+
+/*
+
+*/
