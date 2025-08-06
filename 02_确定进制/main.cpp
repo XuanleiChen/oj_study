@@ -1,33 +1,48 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-
-int jzadd(int a,int b,int r)
-{
-	
-	for (int i=2;i<=16;i++)
-	{
-		int count=0,t1=a,t2=b;
-		int res1=0,res2=0;
-		do
-		{
-			res1+=(t1%i*pow(i,count));
-			res2+=(t2%i*pow(i,count));
-			count++;
-		}while((t1/=i)&&(t2/=i));
-		if (res1+res2==r)
-		return i;
-		else if (i==16)
-		return 0;
-		
+long long i,k;
+char p[1005],q[1005],r[1005];
+char c[20] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+int achar(char x[],char y[],char z[]){//查找值最高那一位的值的函数。 
+	int pp = strlen(x),qq = strlen(y),rr = strlen(z),m = 0,n,i;
+	for(i = 0; i < pp; i++){
+		n = int(x[i] - 48);
+		m = max(n,m);
+	}
+	for(i = 0; i < qq; i++){
+		n = int(y[i] - 48);
+		m = max(n,m);
+	}
+	for(i = 0; i < rr; i++){
+		n = int(z[i] - 48);
+		m = max(n,m);
+	}//依次查找。 
+	return (c[m] - 48);
 }
+long long anyu(char s[],int b){
+	int n = strlen(s);
+	long long x = 0;
+	for(int i = 0; i < n; i++){
+		for(int j = 0; j <= 15; j++){ 
+			if(s[i] == c[j]){
+				x += j * pow(b,n - i - 1);
+				break;
+			}
+		}
+	}
+	return x;
 }
-int main(void)
-{
-	
-
-	int p,q,r;
-	cin>>p>>q>>r;
-	int res=jzadd(p,q,r);
-	cout<<res<<endl;
+int main(){
+	cin >> p;
+	cin >> q;
+	cin >> r;
+	k = achar(p,q,r);//调用那个函数。
+	for(i = max(k + 1,2ll); i <= 16; i++){//注意这里，i 不能直接从 1 开始！ 
+		if(anyu(p,i) * anyu(q,i) == anyu(r,i)){
+			cout<< i << endl;
+			return 0;//符合条件就输出，然后就结束了。 
+		}
+	}
+	cout<< 0 << endl;//无解时输出0. 
 	return 0;
 }
