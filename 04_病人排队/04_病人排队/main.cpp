@@ -1,11 +1,11 @@
 #include <iostream>
  typedef struct pat
 {
-	string id;
+	 unsigned int  id;
 	unsigned int age;
-	int rk;
+	
 
-};
+}pat;
 using namespace std;
 int main(void)
 {
@@ -43,13 +43,12 @@ int main(void)
 		if (arr[i].age >= 60)
 		{ 
 		
-			for (int t = i; arr[t ] != NULL; t++)
+			for (int t = i; arr[t].id != NULL; t++)
 				arr[t] = arr[t + 1];
 		}
 	}
 	for (int i = oldcount, j = 0; i < count - oldcount; i++, ++j)
 		old[i] = arr[j];
 	for (int i = 0; i < count; i++)
-		cout << old.id<<endl;
-	return 0;
+		puts(old[i].id);
 }
