@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
  typedef struct pat
 {
 	 unsigned int  id;
@@ -16,7 +17,7 @@ int main(void)
 	{
 		cin >> arr[i].id;
 		cin >> arr[i].age;
-		arr[i].rk = i;
+		
 		if (arr[i].age >= 60)
 		{
 			oldcount++;
@@ -38,17 +39,16 @@ int main(void)
 
 	}
   
-	for (int i = 0; i < count; i++)
+	for (int i = oldcount, j = 0; i < count - oldcount; i++, ++j)
+
 	{
-		if (arr[i].age >= 60)
-		{ 
-		
-			for (int t = i; arr[t].id != NULL; t++)
-				arr[t] = arr[t + 1];
+		if (arr[i].age < 60)
+		{
+			old[j + oldcount] = arr[i];
+
 		}
 	}
-	for (int i = oldcount, j = 0; i < count - oldcount; i++, ++j)
-		old[i] = arr[j];
 	for (int i = 0; i < count; i++)
-		puts(old[i].id);
+		cout << setfill('0') << setw(6) << old[i].id << endl;
+		return 0;
 }

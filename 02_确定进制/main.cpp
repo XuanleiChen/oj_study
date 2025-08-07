@@ -1,48 +1,51 @@
-#include<bits/stdc++.h>
+#include <iostream> // 提供 cin 和 cout
+#include <algorithm> // 提供 reverse 函数 和 max_element 函数
+#include <string> // string 类
+#include <cmath> // pow 函数
+// 此题需要开 long long 不然 90 分
+
 using namespace std;
-long long i,k;
-char p[1005],q[1005],r[1005];
-char c[20] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
-int achar(char x[],char y[],char z[]){//查找值最高那一位的值的函数。 
-	int pp = strlen(x),qq = strlen(y),rr = strlen(z),m = 0,n,i;
-	for(i = 0; i < pp; i++){
-		n = int(x[i] - 48);
-		m = max(n,m);
-	}
-	for(i = 0; i < qq; i++){
-		n = int(y[i] - 48);
-		m = max(n,m);
-	}
-	for(i = 0; i < rr; i++){
-		n = int(z[i] - 48);
-		m = max(n,m);
-	}//依次查找。 
-	return (c[m] - 48);
+
+inline string TO_Be(int B, long long n) {
+    string num = "";
+    for (; n; n /= B)
+        num.push_back(n % B);
+    reverse(num.begin(), num.end());
+    for (auto& i : num) {
+        (i >= 0 && i <= 9) ? i += '0' : i += 'A' - 10;
+    }
+    return num;
 }
-long long anyu(char s[],int b){
-	int n = strlen(s);
-	long long x = 0;
-	for(int i = 0; i < n; i++){
-		for(int j = 0; j <= 15; j++){ 
-			if(s[i] == c[j]){
-				x += j * pow(b,n - i - 1);
-				break;
-			}
-		}
-	}
-	return x;
+
+inline long long B_to(int B, string n) {
+    long long num = 0;
+    reverse(n.begin(), n.end());
+    for (int i = 0; i < n.size(); i++) {
+        if (n[i] >= '0' && n[i] <= '9')
+            num += pow(B, i) * (n[i] - '0');
+        else
+            num += pow(B, i) * (n[i] - 'A' - 10);
+    }
+    return num;
 }
-int main(){
-	cin >> p;
-	cin >> q;
-	cin >> r;
-	k = achar(p,q,r);//调用那个函数。
-	for(i = max(k + 1,2ll); i <= 16; i++){//注意这里，i 不能直接从 1 开始！ 
-		if(anyu(p,i) * anyu(q,i) == anyu(r,i)){
-			cout<< i << endl;
-			return 0;//符合条件就输出，然后就结束了。 
-		}
-	}
-	cout<< 0 << endl;//无解时输出0. 
-	return 0;
+
+inline int Min(string p, string q, string r) {
+    char MIN = *max_element(p.begin(), p.end());
+    MIN = max(MIN, *max_element(q.begin(), q.end()));
+    MIN = max(MIN, *max_element(r.begin(), r.end()));
+    return MIN - '0' + 1;
+}
+
+int main() {
+    string q, p, r;
+    cin >> p >> q >> r;
+    for (int B = Min(p, q, r); B < 17; B++) {
+        long long pmq = B_to(B, p) * B_to(B, q); // 计算 10 进制乘积
+        if (TO_Be(B, pmq) == r) { // 把计算好的乘积转换成 B 进制，然后判等
+            cout << B; // 符合条件就输出 B
+            return 0; // 结束程序
+        }
+    }
+    cout << 0; // 如果所有进制都不行，按照题目要求输出 0
+    return 0;
 }
