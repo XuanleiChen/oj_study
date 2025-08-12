@@ -16,7 +16,7 @@ int main (void)
 		check[i]=1;
 	}
 	int res=0;
-	for (int i=0;i<l;i++)
+	for (int i=0;i<=l;i++)
 	{
 		if (check[i]==1) res++;
 	}
