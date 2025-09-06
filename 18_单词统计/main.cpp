@@ -8,9 +8,9 @@ int main(void) {
 
     for (int i = 0; i + cont.size() <= word.size(); i++) {
         if (word.substr(i, cont.size()) == cont) {
-            res = i;   // 找到位置
+            res = i;   //找到位置
             flag = 1;
-            break;     // 如果只要第一个匹配位置，可以直接跳出
+            break;     // 如果找到第一个位置，直接跳出
         }
     }
 
