@@ -1,17 +1,21 @@
 #include <bits/stdc++.h>
 using namespace std;
+bool cmp(string a,string b)
+{
+	return a+b>b+a;//看看是字符a拼接在前面更大还是~
+}
 int main(void)
 {
 	int n,i;
 	cin>>n;
-	char     a[20];
+	vector<string> a(n);
 	for ( i=0;i<n;i++)
 	{
 		cin>>a[i];
 		
 	}
-	sort(a,a+n+1);
-	reverse(a,a+n+1);
+	sort(a.begin(),a.end(),cmp);
+
 		for (i=0;i<n;i++)
 		cout<<a[i];
 		cout<<endl;
