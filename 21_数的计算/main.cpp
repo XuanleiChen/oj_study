@@ -1,24 +1,18 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-int arr(int n)
+int extra count=1;
+void zdjg(int n)
 {
-	int res=1;
-	  int i=1;
-  while(i<=n/2)
-  {
-    res+=arr(i);
-    i++;
-  }
-
-  return res;
-
+	for (int i=1;i<=n/2;i++)
+	  count++;
+	n/=2;
+	zdjg(n);
 }
 int main(void)
 {
 	int n;
 	cin>>n;
-	int res=arr(n);
-	cout<<res<<endl;
-	
+	zdjg(n);
+    cout<<count<<endl;
 	return 0;
 }
